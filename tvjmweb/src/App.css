@@ -1,6 +1,9 @@
 
 .App {
   text-align: center;
+  align-content: center;
+  align-self: center;
+  background-color: #5085A5;
 }
 
 .App-logo {
@@ -41,4 +44,12 @@
 .Image {
   max-width: 100%;
   max-height: auto;
+}
+.MuiGrid-root {
+  align-content: center;
+}
+
+.App-footer{
+  padding: 10px;
+  margin-bottom: 10px;
 }

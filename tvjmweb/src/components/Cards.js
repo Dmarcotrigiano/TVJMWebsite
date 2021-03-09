@@ -1,9 +1,41 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
+const StyledForm = styled.form`
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+box-sizing: border-box;
+background: #8fc1e3;
+align-content: center;
+
+`
+const LineInput = styled.input`
+width: 100%;
+height: 20px;
+padding: 12px 20px;
+box-sizing: border-box;
+border: 2px solid #ccc;
+border-radius: 4px;
+background-color: #f8f8f8;
+resize: none;
+font-family: roboto;
+`
+const ParaInput = styled.textarea`
+width: 100%;
+height: 150px;
+padding: 12px 20px;
+box-sizing: border-box;
+border: 2px solid #ccc;
+border-radius: 4px;
+background-color: #f8f8f8;
+resize: none;
+font-family: roboto;
+align: center;
+`
 export let cardInfo = [];
 
-export function NewCard(){
+export default function NewCard(props){
     const [card, setCard] = useState({});
     const handleChange = ({target}) => {
     const {name, value} = target;
@@ -12,13 +44,24 @@ export function NewCard(){
             [name]: value,           
         }));
     };
-        const handleSubmit = (e) => {
+    
+    const handleSubmit = (e) => {
             
-        alert('Thank you for submitting a memory, '+ card.author)
+        
             e.preventDefault();
-           cardInfo.push(card);
+          //  cardInfo.push(card.props);
+           props.onSubmit({
+             id: Math.floor(Math.random() * 10000),
+             title: card.title,
+             body: card.body,
+             author: card.author,
+             date: card.date,
+            
+           });
+           setCard('');
+          //  console.log(cardInfo);
            
-        }
+    }
     // const componentWillDismount = ({target}) => {
     //         const {name, value} = target;
     //             setCard((prevInfo) => ({
@@ -26,8 +69,9 @@ export function NewCard(){
     //                 [name]: value,           
     //             }));
         return (
-            <form onSubmit={handleSubmit}>
-              <input
+          
+            <StyledForm onSubmit={handleSubmit}>
+              <LineInput
                 onChange={handleChange}
                 value={card.title || ''}
                 name="title"
@@ -35,20 +79,20 @@ export function NewCard(){
                 placeholder="Name of Your Memory"
               />
 
-              <input
+              <LineInput
                 onChange={handleChange}
                 value={card.date || ''}
                 type="date"
                 name="date"
               />
-              <input
+              <LineInput
                 onChange={handleChange}
                 value={card.author || ''}
                 type="text"
                 name="author"
                 placeholder="Your Name"
               /><div>
-              <input
+              <ParaInput
               onChange={handleChange}
                 value={card.body || ''}
                 type="text"
@@ -56,7 +100,7 @@ export function NewCard(){
                 placeholder="Your Memory"
               /></div>
               <button  type="submit">Submit</button>
-            </form>
+            </StyledForm>
         )
 
 }
